@@ -1,34 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import init, { add } from "wasm-lib";
+import init, { get } from "wasm-lib";
+
+type block = {
+  id: string,
+  label: string,
+}
+type Data = {
+  blocks: block[]
+}
 
 function App() {
 
-  const [ans, setAns] = useState(0);
+  const [list, setList] = useState<Data>();
+
   useEffect(() => {
     init().then(() => {
-      setAns(add(1, 1));
+      const initData = get() as Data
+      setList(initData)
     })
   }, [])
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <p>1+1={ans}</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {
+        list?.blocks.map(b =>
+          <span key={b.id}>
+            {b.label}
+          </span>
+        )
+      }
     </div>
   );
 }
