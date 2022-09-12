@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import init, { get } from "wasm-lib";
+import HomePage from './pages/index'
 
 type block = {
   id: string,
@@ -21,15 +22,16 @@ function App() {
   }, [])
 
   return (
-    <div className="App">
-      {
-        list?.blocks.map(b =>
-          <span key={b.id}>
-            {b.label}
-          </span>
-        )
-      }
-    </div>
+    <HomePage />
+    // <div className="App">
+    //   {
+    //     list?.blocks.map(b =>
+    //       <span key={b.id}>
+    //         {b.label}
+    //       </span>
+    //     )
+    //   }
+    // </div>
   );
 }
 
